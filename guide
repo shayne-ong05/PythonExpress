@@ -1,0 +1,356 @@
+print("1 | Order")
+print("2 | Exit")
+
+x = 1
+y = 2
+
+print("Please input the number of your chosen action.")
+choice = int(input("I would like to: "))
+#Start of program if chosen 1, introduction of menu
+if choice == 1:
+  print("Here is the menu!")
+
+  print("Mains:")
+  print("ID    Type      Price")
+  print("1     Chicken    90.00")
+  print("2     Pork       105.00")
+  print("3     Fish       120.00")
+  print("4     Beef       135.00")
+
+  print("Sides: ")
+  print("ID   Type               Price")
+  print("1    Steamed Rice       20.00")
+  print("2    Shredded Corn      35.00")
+  print("3    Mashed Potatoes    50.00")
+  print("4    Steam Vegetables   65.00")
+
+  print("Drinks:")
+  print("ID    Type           Price")
+  print("1     Mineral Water   25.00")
+  print("2     Iced Tea        35.00")
+  print("3     Soda            45.00")
+  print("4     Fruit Juice     55.00")
+#order starts here
+  order = 0
+  i=0
+  number_of_people = int(input("How many people are in your group?:"))
+
+  while number_of_people != 0:
+    if number_of_people > 0:
+      order = order + 1
+      print("Order", order)
+      name = input("Input name for the order: ")
+
+    else:
+      print("Sorry I can't read what you are trying to say")
+#set values    
+    0 == "None"
+    1 == "Chicken"
+    2 == "Pork"
+    3 == "Fish"
+    4 == "Beef"
+    
+    main1 = 90.00
+    main2 = 105.00
+    main3 = 120.00
+    main4 = 135.00
+    main0 = 0.0
+
+    
+    main = int(input("Main:     "))
+   
+    if main == 1:
+      main = str("Chicken | ") + str(main1)
+      print("     Chicken")
+      price = 90.00
+    elif main == 2:
+      main = str("Pork | ") + str(main2)
+      print("     Pork")
+      price = 105.00
+    elif main == 3:
+      main = str("Fish | ") + str(main3)
+      print("     Fish")
+      price = 120.00
+    elif main == 4:
+      main = str("Beef | ") + str(main4)
+      print("     Beef")
+      price = 135.00
+    elif main == 0:
+      main = str("None | ") + str(main0)
+      print("      None")
+      price = 0.0
+    
+    else:
+      print("Sorry that is not on the menu!")
+      main = int(input("Main:     "))
+
+    0 == "None"
+    1 == "Steamed Rice"
+    2 == "Shredded Corn"
+    3 == "Mashed Potatoes"
+    4 == "Steam Vegetables"
+
+    side1 = 20.00
+    side2 = 35.00
+    side3 = 50.00
+    side4 = 65.00
+    side0 = 0.0
+
+    
+    side = int(input("Side:     "))
+    if side == 1:
+      side = str("Steamed Rice | ") + str(side1)
+      print("     Steamed Rice")
+      sprice = 20.00
+    elif side == 2:
+      side = str("Shredded Corn | ") + str(side2)
+      print("     Shredded Corn")
+      sprice = 35.00
+    elif side == 3:
+      side = str("Mashed Potatoes | ") + str(side3)
+      print("     Mashed Potatoes")
+      sprice = 50.00
+    elif side == 4:
+      side = str("Steam Vegetables | ") + str(side4)
+      print("     Steam Vegetables")
+      sprice = 65.00
+    elif side == 0:
+      side = str("None | ") + str(side0)
+      print("      None")
+      sprice = 0
+    else:
+      print("Sorry, that is not the on the menu!")
+      side = int(input("Side:     "))
+
+    0 == "None"
+    1 == "Mineral Water"
+    2 == "Iced Tea"
+    3 == "Soda"
+    4 == "Fruit Juice"
+  
+    drink1 = 25.00
+    drink2 = 35.00
+    drink3 = 45.00
+    drink4 = 55.00
+    drink0 = 0.0
+
+  
+    drink = int(input("Drink:   "))
+    if drink == 1:
+      drink = str("Mineral Water | ") + str(drink1)
+      print("     Mineral Water")
+      dprice = 25.00
+    elif drink == 2:
+      drink = str("Iced Tea | ") + str(drink2)
+      print("     Iced Tea")
+      dprice = 35.00
+    elif drink == 3:
+      drink = str("Soda | ") + str(drink3)
+      print("     Soda")
+      dprice = 45.00
+    elif drink == 4:
+      drink = str("Fruit Juice | ") + str(drink4)
+      print("     Fruit Juice")
+      dprice = 55.00
+    elif drink == 0:
+      drink = str("None | ") + str(drink0)
+      print("      None")
+      dprice = 0.0
+    else:
+      print("Sorry, that is not the on the menu!")
+      drink = int(input("Drink:   "))
+#proceeding to the next order
+    meal = input("Is this meal set order correct %s?:" % name)
+    if meal == "y":
+        if number_of_people>order:
+          proceed = input("Proceed with the next order %s?:" % name)
+          if proceed == "y":
+            continue
+          elif proceed != "y":
+            print("Order for the party of", number_of_people)
+            count = 0
+            total_cost = 0
+#start of receipt 
+            while (True):
+                count = count + 1
+                count = count
+                print("Order:", count)
+                print("Main: ", main)
+                print("Side: ", side)
+                print("Drink: ", drink) 
+                subtotal = float(price +sprice + dprice)
+                print("Subtotal:    ", subtotal)
+                total_cost += subtotal
+                if order == count:
+                  print("Total Amount Due:                  ",total_cost)
+                  print("Each person must pay:", total_cost/number_of_people)
+                  break
+          break
+          if number_of_people == order:   
+                count = 0
+                total_cost = 0
+                while (True):
+                  count = count + 1
+                  count = count
+                  print("Order:", count)
+                  print("Main:        ", main)
+                  print("Side:        ", side)
+                  print("Drink:       ", drink)
+                  subtotal = float(price + sprice + dprice)
+                  print("Subtotal:            ", subtotal)
+                  total_cost += subtotal
+                  if order == count:
+                    print("Total Amount Due:                  ",total_cost)
+                    print("Each person must pay:", total_cost/number_of_people)
+                  break
+          break
+#Modifying or changing orders here
+    elif meal == "n":
+      while meal != "y":
+        if number_of_people > 0:
+          order = order 
+          print("Order", order)
+          name = input("Input name for the order: ")
+
+          0 == "None"
+          1 == "Chicken"
+          2 == "Pork"
+          3 == "Fish"
+          4 == "Beef"
+          
+          main1 = 90.00
+          main2 = 105.00
+          main3 = 120.00
+          main4 = 135.00
+          main0 = 0.0
+      
+          
+          main = int(input("Main:     "))
+         
+          if main == 1:
+            main = str("Chicken | ") + str(main1)
+            print("     Chicken")
+            price = 90.00
+          elif main == 2:
+            main = str("Pork | ") + str(main2)
+            print("     Pork")
+            price = 105.00
+          elif main == 3:
+            main = str("Fish | ") + str(main3)
+            print("     Fish")
+            price = 120.00
+          elif main == 4:
+            main = str("Beef | ") + str(main4)
+            print("     Beef")
+            price = 135.00
+          elif main == 0:
+            main = str("None | ") + str(main0)
+            print("      None")
+            price = 0.0
+          
+          else:
+            print("Sorry that is not on the menu!")
+            main = int(input("Main:     "))
+      
+          0 == "None"
+          1 == "Steamed Rice"
+          2 == "Shredded Corn"
+          3 == "Mashed Potatoes"
+          4 == "Steam Vegetables"
+      
+          side1 = 20.00
+          side2 = 35.00
+          side3 = 50.00
+          side4 = 65.00
+          side0 = 0.0
+      
+          
+          side = int(input("Side:     "))
+          if side == 1:
+            side = str("Steamed Rice | ") + str(side1)
+            print("     Steamed Rice")
+            sprice = 20.00
+          elif side == 2:
+            side = str("Shredded Corn | ") + str(side2)
+            print("     Shredded Corn")
+            sprice = 35.00
+          elif side == 3:
+            side = str("Mashed Potatoes | ") + str(side3)
+            print("     Mashed Potatoes")
+            sprice = 50.00
+          elif side == 4:
+            side = str("Steam Vegetables | ") + str(side4)
+            print("     Steam Vegetables")
+            sprice = 65.00
+          elif side == 0:
+            side = str("None | ") + str(side0)
+            print("      None")
+            sprice = 0
+          else:
+            print("Sorry, that is not the on the menu!")
+            side = int(input("Side:     "))
+      
+          0 == "None"
+          1 == "Mineral Water"
+          2 == "Iced Tea"
+          3 == "Soda"
+          4 == "Fruit Juice"
+        
+          drink1 = 25.00
+          drink2 = 35.00
+          drink3 = 45.00
+          drink4 = 55.00
+          drink0 = 0.0
+      
+        
+          drink = int(input("Drink:   "))
+          if drink == 1:
+            drink = str("Mineral Water | ") + str(drink1)
+            print("     Mineral Water")
+            dprice = 25.00
+          elif drink == 2:
+            drink = str("Iced Tea | ") + str(drink2)
+            print("     Iced Tea")
+            dprice = 35.00
+          elif drink == 3:
+            drink = str("Soda | ") + str(drink3)
+            print("     Soda")
+            dprice = 45.00
+          elif drink == 4:
+            drink = str("Fruit Juice | ") + str(drink4)
+            print("     Fruit Juice")
+            dprice = 55.00
+          elif drink == 0:
+            drink = str("None | ") + str(drink0)
+            print("      None")
+            dprice = 0.0
+          else:
+            print("Sorry, that is not the on the menu!")
+            drink = int(input("Drink:   "))
+
+          meal = input("Is this meal set order correct %s?:" % name)
+          if meal == "y":
+            proceed = input("Proceed with the next order %s?:" % name)
+            
+#Receipt when complete (Having difficulties with showing the whole receipt at the end of the program)
+    if number_of_people == order:
+      print("Order for the party of", number_of_people)
+      count = 0
+      total_cost = 0
+      while (True):
+        count = count + 1
+        count = count
+        print("Order:", order)
+        print("Main: ", main)
+        print("Side: ", side)
+        print("Drink: ", drink)
+        subtotal = float(price + sprice + dprice)
+        print("Subtotal:", subtotal)
+        total_cost += subtotal
+        if order == count:
+          print("Total Amount Due:                  ",total_cost)
+          print("Each person must pay:", total_cost/number_of_people)
+          break
+        break
+else:
+  print("See you next time!")
