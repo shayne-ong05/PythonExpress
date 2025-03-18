@@ -23,32 +23,28 @@ menu_options = {
     '7': ("Fish & Chips - ₱550", "main"),
     '8': ("Grilled Shrimp Skewers - ₱750", "main"),
 
-   
     '9': ("Beef Broccoli - ₱600", "main"),
     '10': ("Beef Tenderloin - ₱950", "main"),
 
     '11': ("Grilled Pork Steak - ₱650", "main"),
     '12': ("Baby Back Ribs - ₱900", "main"),
 
-  
     '13': ("Chicken Parmesan - ₱620", "main"),
     '14': ("Stir-fry Honey Garlic Chicken - ₱580", "main"),
     '15': ("Roasted Duck - ₱990", "main"),
-
 
     '16': ("Spaghetti Aglio E Olio - ₱520", "main"),
     '17': ("Chicken Spinach Alfredo Pasta - ₱680", "main"),
     '18': ("Pesto Pasta - ₱600", "main"),
 
- 
     '19': ("Hot Coffee - ₱180", "drink"),
     '20': ("Green Tea - ₱160", "drink"),
-
 
     '21': ("Iced Coffee - ₱190", "drink"),
     '22': ("Lemon Iced Tea - ₱170", "drink"),
     '23': ("Apple Juice - ₱150", "drink"),
     '24': ("Pineapple Juice - ₱180", "drink"),
+    '25': ("Matcha - ₱200", "drink"),
 
     'E': ("Exit", "exit")
 }
@@ -94,6 +90,7 @@ of your choice and it will automatically be added to your cart.
 ❄️ COLD DRINKS:  
 \t21. {menu_options['21'][0]}\t22. {menu_options['22'][0]}  
 \t23. {menu_options['23'][0]}\t24. {menu_options['24'][0]}  
+\t25. {menu_options['25'][0]}  
 
 (E) - Exit
 """
