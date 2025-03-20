@@ -49,11 +49,7 @@ menu_options = {
     'E': ("Exit", "exit")
 }
 
-<<<<<<< HEAD
 orders = []
-=======
-allorders = []
->>>>>>> afa14cf6a3d6f2fcbcb563c11455fc8c0ac69b53
 
 def display_menu():
     # Centered welcome text
@@ -115,10 +111,4 @@ def add_to_order():
                 allorders.append(item_name)
                 console.print(f"Added {item_name} to your order!\n")
         else:
-<<<<<<< HEAD
             console.print("Invalid choice, please try again!")
-=======
-            console.print("Invalid choice, please try again!")
-
-add_to_order()
->>>>>>> afa14cf6a3d6f2fcbcb563c11455fc8c0ac69b53
