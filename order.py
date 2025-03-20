@@ -16,7 +16,6 @@ menu_options = {
     '10': "Exit"
 }
 
-
 orders = []
 
 def display_menu():
@@ -41,7 +40,6 @@ def display_menu():
     console.print(Panel(menu_text, title="🍽 Food & Drinks Menu", border_style="blue", expand=True))
 
 def add_to_order():
-
     while True:
         display_menu()
         choice = input("Enter the number of your choice (or 10 to finish): ")
@@ -54,4 +52,3 @@ def add_to_order():
                 console.print(f"Added {menu_options[choice]} to your order!✅\n")
         else:
             console.print("Invalid choice, please try again!")
-add_to_order()

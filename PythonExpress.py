@@ -37,14 +37,16 @@ def main():
         mmtxt = ['Main Menu\n', '[1] View Menu', '[2] Add to Order', '[3] Review Order', '[4] Finalize Order', '[5] Admin Settings', '[6] Exit']
         for txt in mmtxt:
             print(txt.center(100))
+        
         sel = 0
         sel = input("\n\nPlease select an option. ")
     
         match sel:
             case '1':
-                
+                clear_screen()
                 order.display_menu()
                 input("\nPress Enter to return to the main menu...")
+                clear_screen()
             case '2':
                 order.add_to_order()
             case '3':
