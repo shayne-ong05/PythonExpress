@@ -17,6 +17,10 @@ import os
 import order
 from order import orders, menu_options
 
+def rev_order():
+    raise NotImplementedError
+
+
 def admin_check():
     clear_screen()
     password = input("Enter admin password: ")
