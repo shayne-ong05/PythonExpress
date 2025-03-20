@@ -14,6 +14,9 @@ V1.0 - added main function, and some functions to be defined later for main menu
 '''
 # Clear screen code, referencing GeeksforGeeks.org
 import os
+import order
+
+
 
 def clear_screen():
     # For Windows
@@ -34,14 +37,16 @@ def main():
         mmtxt = ['Main Menu\n', '[1] View Menu', '[2] Add to Order', '[3] Review Order', '[4] Finalize Order', '[5] Admin Settings', '[6] Exit']
         for txt in mmtxt:
             print(txt.center(100))
-    
+        sel = 0
         sel = input("\n\nPlease select an option. ")
     
         match sel:
             case '1':
-                display_menu()
+                
+                order.display_menu()
+                input("\nPress Enter to return to the main menu...")
             case '2':
-                add_order()
+                order.add_to_order()
             case '3':
                 rev_order()
             case '4':
