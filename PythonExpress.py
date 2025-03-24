@@ -8,17 +8,48 @@ Tolentino, Wayne Ian
 
 In partial fulfillment in the course Programming Logic and Design Lecture, under Mr. John Vincent Cortez.
 
-Updates:
-V1.0 - added main function, and some functions to be defined later for main menu 
-
 '''
 # Clear screen code, referencing GeeksforGeeks.org
 import os
 import order
 from order import orders, menu_options
 
+def clear_screen():
+    # For Windows
+    if os.name == 'nt':
+        _ = os.system('cls')
+    # For macOS and Linux
+    else:
+        _ = os.system('clear')
+
 def rev_order():
-    raise NotImplementedError
+    clear_screen()
+    print("\tOrder Review")
+    print("-" * 100 + "\n")
+    
+    if not orders:
+        print("Your order is currently empty.")
+    else:
+        print("Your Current Order:")
+        print("\nItem\t\t\tPrice\n")
+        
+        total_cost = 0
+        for item in orders:
+            
+            item_parts = item.split(" - ")
+            item_name = item_parts[0]
+            item_price = item_parts[1]
+            
+         
+            price_value = int(item_price.replace("₱", ""))
+            total_cost += price_value
+            
+            print(f"- {item}")
+        
+        print(f"\nTotal Cost: ₱{total_cost:,}")
+    
+    input("\nPress Enter to return to the main menu...")
+    clear_screen()
 
 
 def admin_check():
@@ -98,13 +129,7 @@ def admin_menu():
 
 
 
-def clear_screen():
-    # For Windows
-    if os.name == 'nt':
-        _ = os.system('cls')
-    # For macOS and Linux
-    else:
-        _ = os.system('clear')
+
 
 def main():
 # Main Menu Screen

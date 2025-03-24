@@ -97,19 +97,18 @@ of your choice and it will automatically be added to your cart.
     console.print(Panel(menu_text, title="🍽 FOOD & DRINKS MENU", border_style="blue"))
 
 def add_to_order():
-    allorders = []
     while True:
         display_menu()
         order = input("Enter the number of your choice (or 'E' to finish): ").strip().upper()
 
         if order in menu_options:
             if order == 'E':
-                console.print("\nThank you for ordering! Here’s your order summary:")
-                console.print(Panel("\n".join(allorders), title="Your Order", border_style="green"))
+                console.print("\nThank you for ordering! Here's your order summary:")
+                console.print(Panel("\n".join(orders), title="Your Order", border_style="green"))
                 break
             else:
                 item_name, category = menu_options[order]
-                allorders.append(item_name)
+                orders.append(item_name)
                 console.print(f"Added {item_name} to your order!\n")
         else:
             console.print("Invalid choice, please try again!")

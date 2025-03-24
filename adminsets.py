@@ -1,3 +1,0 @@
-def admin_menu():
-    
-
