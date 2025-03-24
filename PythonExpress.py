@@ -14,6 +14,10 @@ V1.0 - added main function, and some functions to be defined later for main menu
 '''
 # Clear screen code, referencing GeeksforGeeks.org
 import os
+from rich.console import Console
+from rich.panel import Panel
+from rich.align import Align
+
 def display_menu():
     # Centered welcome text
     welcome = Align.center(welcome_text)
