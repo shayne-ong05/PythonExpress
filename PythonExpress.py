@@ -106,7 +106,7 @@ def main():
             case '1':
                 display_menu()
             case '2':
-                add_order()
+                add_to_order()
             case '3':
                 rev_order()
             case '4':
