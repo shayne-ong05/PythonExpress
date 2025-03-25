@@ -199,35 +199,50 @@ def clear_screen():
     os.system('cls' if os.name == 'nt' else 'clear')
 
 # Main menu function
+def clear_screen():
+    # For Windows
+    if os.name == 'nt':
+        _ = os.system('cls')
+    # For macOS and Linux
+    else:
+        _ = os.system('clear')
+
+
 def main():
+    # Main Menu Screen
+    clear_screen()
     while True:
-        clear_screen()
-        console.print("\n🐍 WELCOME TO PYTHON EXPRESS 🐍", style="bold cyan")
-        console.print("Where we move at slithering speeds to take your order!", style="italic")
 
-        console.print("\n📋 MAIN MENU 📋")
-        console.print("[1] View Menu")
-        console.print("[2] Add to Order")
-        console.print("[3] Review Order")
-        console.print("[4] Finalize Order")
-        console.print("[5] Exit")
+        print("\tWelcome to Python Express, where we move at slithering speeds to make your order!")
+        print("-" * 100 + "\n\n")
 
-        choice = input("\nSelect an option: ").strip()
+        mmtxt = ['Main Menu\n', '[1] View Menu', '[2] Add to Order', '[3] Review Order', '[4] Finalize Order',
+                 '[5] Admin Settings', '[6] Exit']
+        for txt in mmtxt:
+            print(txt.center(100))
 
-        if choice == '1':
-            display_menu()
-        elif choice == '2':
-            add_to_order()
-        elif choice == '3':
-            review_order()
-        elif choice == '4':
-            finalize_order()
-        elif choice == '5':
-            console.print("\nThank you for using Python Express! Goodbye. 🐍", style="bold cyan")
-            break
-        else:
-            console.print("\n❌ Invalid choice. Please try again.", style="bold red")
-            input("\nPress 0 to return: ")
+        sel = input("\n\nPlease select an option. ")
+
+        match sel:
+            case '1':
+                display_menu()
+            case '2':
+                add_order()
+            case '3':
+                rev_order()
+            case '4':
+                print("Order has been finalized. Please wait, printing your receipt!")
+                rev_order()
+                break
+            case '5':
+                admin_check()  # integrate function admin_menu() once done, as well as the main menu for admin and its functions
+            case '6':
+                print("\nThank you for using Python Express! Goodbye. 🐍)
+                break
+            case _:
+                clear_screen()
+                print("❌ Invalid choice. Please try again.")
+                input("\nPress 0 to return: ")
 
 
 if __name__ == "__main__":
