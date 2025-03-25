@@ -18,11 +18,18 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.align import Align
 
+
 def display_menu():
-    # Centered welcome text
+    console = Console()
+
+
+    welcome_text = """
+Welcome to Python Express!
+Each item is assigned to a number. Simply type the number of the item 
+of your choice and it will be added to your cart.
+"""
     welcome = Align.center(welcome_text)
 
-    # Construct the menu with prices
     menu_text = f"""
 Welcome to Python Express!
 Each item is assigned to a number. Simply type the number of the item 
