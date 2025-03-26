@@ -17,6 +17,7 @@ import os
 from rich.console import Console
 from rich.panel import Panel
 from rich.align import Align
+from random import randint
 
 console = Console()
 
@@ -244,6 +245,8 @@ def rev_order():
             except IOError:
                 print("INVALID! Please pick again") 
             console.print("\n𓆙" + "." * 20)
+            digits = randint(1000,9999)
+            console.print(f"\nPlease present the number {digits} to the cashier!")
             input("\nPress Enter to return to the main menu...")
             return
         elif choice == '0':
@@ -390,9 +393,14 @@ def main():
             case '3':
                 rev_order()
             case '4':
-                console.print("Order has been finalized. Please wait, printing your receipt!\n𓆙" + "."* 30, style = "bold yellow")
-                rev_order()
-                break
+                if not allorders:  # Check if the order list is empty
+                    console.print("\n❌ Cannot finalize order! No items have been added.", style="bold red")
+                    input("\nPress Enter to return to the main menu...")
+                    clear_screen()
+                else:
+                    console.print("Order has been finalized. Please wait, printing your receipt!\n𓆙" + "." * 30, style="bold yellow")
+                    rev_order()
+                    break
             case '5':
                 admin_check()  # integrate function admin_menu() once done, as well as the main menu for admin and its functions
             case '6':
