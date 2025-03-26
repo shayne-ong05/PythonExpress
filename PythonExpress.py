@@ -58,127 +58,120 @@ menu_options = {
 
 allorders = []
 
-# Function to display the menu
-def display_menu():
-    menu_text = f"""
-🍽 WELCOME TO PYTHON EXPRESS 🍽
-Each item is assigned a number. Simply type the number of the item to add it to your cart.
-We hope that you'll enjoy your time with us! Happy ordering!
-
-🥪 SNACKS:  
-\t1. {menu_options['1'][0]}\t\t2. {menu_options['2'][0]}  
-\t3. {menu_options['3'][0]}\t4. {menu_options['4'][0]}  
-\t5. {menu_options['5'][0]}\t6. {menu_options['6'][0]}  
-
-🐟 SEAFOOD:  
-\t7. {menu_options['7'][0]}\t8. {menu_options['8'][0]}  
-
-🥩 BEEF:  
-\t9. {menu_options['9'][0]}\t10. {menu_options['10'][0]}  
-
-🐖 PORK:  
-\t11. {menu_options['11'][0]}\t12. {menu_options['12'][0]}  
-
-🍗 CHICKEN:  
-\t13. {menu_options['13'][0]} 14. {menu_options['14'][0]}  
-\t15. {menu_options['15'][0]}  
-
-🍝 PASTA:  
-\t16. {menu_options['16'][0]}  
-\t17. {menu_options['17'][0]}  
-\t18. {menu_options['18'][0]}  
-
-🔥 HOT DRINKS:  
-\t19. {menu_options['19'][0]}\t20. {menu_options['20'][0]}  
-
-❄️ COLD DRINKS:  
-\t21. {menu_options['21'][0]}\t22. {menu_options['22'][0]}  
-\t23. {menu_options['23'][0]}\t24. {menu_options['24'][0]}  
-\t25. {menu_options['25'][0]}  
-"""
-    console.print(Panel(menu_text, title="🍽 FOOD & DRINKS MENU", border_style="blue"))
-    input("\nPress 0 to return: ")
-
-# Function to add items to the order
-def add_to_order():
-    console.print("\n🛒 Are you ready to place an order?", style="bold cyan")
-    console.print("Press [1] if you want to start ordering")
-    console.print("Press [0] if you want to return to the main menu")
-
-    choice = input("\nChoice: ").strip()
-
-    if choice == '0':
-        return  # Return to main menu
-    elif choice == '1':
-        display_menu()  # Show menu ONCE before ordering starts
+def clear_screen():
+    # For Windows
+    if os.name == 'nt':
+        _ = os.system('cls')
+    # For macOS and Linux
     else:
-        console.print("❌ Invalid choice, please enter 1 to order or 0 to return!", style="bold red")
-        return
+        _ = os.system('clear')
 
-    # Order selection loop
-    while True:
-        order = input("\nEnter item number to add (or '0' to go back to the main menu): ").strip().upper()
+def display_menu():
+    menu_text = (
+         "[bold yellow]🥪 SNACKS:[/bold yellow]\n"
+    "\t[bold bright_green]1.[/bold bright_green]  {0:<20}  [bold yellow]{25}[/bold yellow]\n"
+    "\t[bold bright_green]2.[/bold bright_green]  {1:<20}  [bold yellow]{26}[/bold yellow]\n"
+    "\t[bold bright_green]3.[/bold bright_green]  {2:<20}  [bold yellow]{27}[/bold yellow]\n"
+    "\t[bold bright_green]4.[/bold bright_green]  {3:<20}  [bold yellow]{28}[/bold yellow]\n"
+    "\t[bold bright_green]5.[/bold bright_green]  {4:<20}  [bold yellow]{29}[/bold yellow]\n"
+    "\t[bold bright_green]6.[/bold bright_green]  {5:<20}  [bold yellow]{30}[/bold yellow]\n\n"
 
-        if order == '0':
-            return  # Go back to main menu
-        elif order in menu_options:
-            item_name, _ = menu_options[order]
-            allorders.append(item_name)
-            console.print(f"✅ Added {item_name} to your order!\n", style="bold green")
-        else:
-            console.print("❌ Invalid choice, please try again!", style="bold red")
+    "[bold cyan]🐟 SEAFOOD:[/bold cyan]\n"
+    "\t[bold bright_green]7.[/bold bright_green]  {6:<20}  [bold yellow]{31}[/bold yellow]\n"
+    "\t[bold bright_green]8.[/bold bright_green]  {7:<20}  [bold yellow]{32}[/bold yellow]\n\n"
 
+    "[bold red]🥩 BEEF:[/bold red]\n"
+    "\t[bold bright_green]9.[/bold bright_green]  {8:<20}  [bold yellow]{33}[/bold yellow]\n"
+    "\t[bold bright_green]10.[/bold bright_green] {9:<20}  [bold yellow]{34}[/bold yellow]\n\n"
 
-# Function to review the order
+    "[bold magenta]🐖 PORK:[/bold magenta]\n"
+    "\t[bold bright_green]11.[/bold bright_green] {10:<20}  [bold yellow]{35}[/bold yellow]\n"
+    "\t[bold bright_green]12.[/bold bright_green] {11:<20}  [bold yellow]{36}[/bold yellow]\n\n"
+
+    "[bold orange]🍗 CHICKEN:[/bold orange]\n"
+    "\t[bold bright_green]13.[/bold bright_green] {12:<20}  [bold yellow]{37}[/bold yellow]\n"
+    "\t[bold bright_green]14.[/bold bright_green] {13:<20}  [bold yellow]{38}[/bold yellow]\n"
+    "\t[bold bright_green]15.[/bold bright_green] {14:<20}  [bold yellow]{39}[/bold yellow]\n\n"
+
+    "[bold green]🍝 PASTA:[/bold green]\n"
+    "\t[bold bright_green]16.[/bold bright_green] {15:<20}  [bold yellow]{40}[/bold yellow]\n"
+    "\t[bold bright_green]17.[/bold bright_green] {16:<20}  [bold yellow]{41}[/bold yellow]\n"
+    "\t[bold bright_green]18.[/bold bright_green] {17:<20}  [bold yellow]{42}[/bold yellow]\n\n"
+
+    "[bold red]🔥 HOT DRINKS:[/bold red]\n"
+    "\t[bold bright_green]19.[/bold bright_green] {18:<20}  [bold yellow]{43}[/bold yellow]\n"
+    "\t[bold bright_green]20.[/bold bright_green] {19:<20}  [bold yellow]{44}[/bold yellow]\n\n"
+
+    "[bold blue]❄️ COLD DRINKS:[/bold blue]\n"
+    "\t[bold bright_green]21.[/bold bright_green] {20:<20}  [bold yellow]{45}[/bold yellow]\n"
+    "\t[bold bright_green]22.[/bold bright_green] {21:<20}  [bold yellow]{46}[/bold yellow]\n"
+    "\t[bold bright_green]23.[/bold bright_green] {22:<20}  [bold yellow]{47}[/bold yellow]\n"
+    "\t[bold bright_green]24.[/bold bright_green] {23:<20}  [bold yellow]{48}[/bold yellow]\n"
+    "\t[bold bright_green]25.[/bold bright_green] {24:<20}  [bold yellow]{49}[/bold yellow]\n"
+
+    ).format(*[menu_options[str(i)][0] for i in range(1, 26)], *[menu_options[str(i)][1] for i in range(1, 26)])
+
+    console.print(Panel(menu_text, title="🍽 FOOD & DRINKS MENU 🍽", border_style="green", width = 100))
+    console.print("\nPress [bold bright_green]0[/bold bright_green] to return: ")
+    input()
+
 def add_to_order():
-    console.print("\n🛒 Are you ready to place an order?", style="bold cyan")
+    console.print("\n🛒 Are you ready to place an order?", style="bold yellow")
     console.print("Press [1] to start ordering")
-    console.print("Press [0] to return to the main menu")
+    console.print("Press [0] to return to the Main Menu")
 
     choice = input("\nYour choice: ").strip()
 
     if choice == '0':
-        return  # Return to main menu
+        return
     elif choice == '1':
-        # Show menu without "Press 0"
-        menu_text = """
-🥪 SNACKS:  
-\t1. French Fries - ₱250\t\t2. Onion Rings - ₱270  
-\t3. Mozzarella Sticks - ₱290\t4. Quesadillas - ₱300  
-\t5. Nachos with Cheese - ₱280\t6. Caesar Salad - ₱260  
+        menu_text = (
+            "[bold yellow]🥪 SNACKS:[/bold yellow]\n"
+            "\t[bold bright_green]1.[/bold bright_green]  {0:<20}  [bold yellow]{25}[/bold yellow]\n"
+            "\t[bold bright_green]2.[/bold bright_green]  {1:<20}  [bold yellow]{26}[/bold yellow]\n"
+            "\t[bold bright_green]3.[/bold bright_green]  {2:<20}  [bold yellow]{27}[/bold yellow]\n"
+            "\t[bold bright_green]4.[/bold bright_green]  {3:<20}  [bold yellow]{28}[/bold yellow]\n"
+            "\t[bold bright_green]5.[/bold bright_green]  {4:<20}  [bold yellow]{29}[/bold yellow]\n"
+            "\t[bold bright_green]6.[/bold bright_green]  {5:<20}  [bold yellow]{30}[/bold yellow]\n\n"
 
-🐟 SEAFOOD:  
-\t7. Fish & Chips - ₱550\t8. Grilled Shrimp Skewers - ₱750  
+            "[bold cyan]🐟 SEAFOOD:[/bold cyan]\n"
+            "\t[bold bright_green]7.[/bold bright_green]  {6:<20}  [bold yellow]{31}[/bold yellow]\n"
+            "\t[bold bright_green]8.[/bold bright_green]  {7:<20}  [bold yellow]{32}[/bold yellow]\n\n"
 
-🥩 BEEF:  
-\t9. Beef Broccoli - ₱600\t10. Beef Tenderloin - ₱950  
+            "[bold red]🥩 BEEF:[/bold red]\n"
+            "\t[bold bright_green]9.[/bold bright_green]  {8:<20}  [bold yellow]{33}[/bold yellow]\n"
+            "\t[bold bright_green]10.[/bold bright_green] {9:<20}  [bold yellow]{34}[/bold yellow]\n\n"
 
-🐖 PORK:  
-\t11. Grilled Pork Steak - ₱650\t12. Baby Back Ribs - ₱900  
+            "[bold magenta]🐖 PORK:[/bold magenta]\n"
+            "\t[bold bright_green]11.[/bold bright_green] {10:<20}  [bold yellow]{35}[/bold yellow]\n"
+            "\t[bold bright_green]12.[/bold bright_green] {11:<20}  [bold yellow]{36}[/bold yellow]\n\n"
 
-🍗 CHICKEN:  
-\t13. Chicken Parmesan - ₱620  14. Stir-fry Honey Garlic Chicken - ₱580  
-\t15. Roasted Duck - ₱990  
+            "[bold orange]🍗 CHICKEN:[/bold orange]\n"
+            "\t[bold bright_green]13.[/bold bright_green] {12:<20}  [bold yellow]{37}[/bold yellow]\n"
+            "\t[bold bright_green]14.[/bold bright_green] {13:<20}  [bold yellow]{38}[/bold yellow]\n"
+            "\t[bold bright_green]15.[/bold bright_green] {14:<20}  [bold yellow]{39}[/bold yellow]\n\n"
 
-🍝 PASTA:  
-\t16. Spaghetti Aglio E Olio - ₱520  
-\t17. Chicken Spinach Alfredo Pasta - ₱680  
-\t18. Pesto Pasta - ₱600  
+            "[bold green]🍝 PASTA:[/bold green]\n"
+            "\t[bold bright_green]16.[/bold bright_green] {15:<20}  [bold yellow]{40}[/bold yellow]\n"
+            "\t[bold bright_green]17.[/bold bright_green] {16:<20}  [bold yellow]{41}[/bold yellow]\n"
+            "\t[bold bright_green]18.[/bold bright_green] {17:<20}  [bold yellow]{42}[/bold yellow]\n\n"
 
-🔥 HOT DRINKS:  
-\t19. Hot Coffee - ₱180\t20. Green Tea - ₱160  
+            "[bold red]🔥 HOT DRINKS:[/bold red]\n"
+            "\t[bold bright_green]19.[/bold bright_green] {18:<20}  [bold yellow]{43}[/bold yellow]\n"
+            "\t[bold bright_green]20.[/bold bright_green] {19:<20}  [bold yellow]{44}[/bold yellow]\n\n"
 
-❄️ COLD DRINKS:  
-\t21. Iced Coffee - ₱190\t22. Lemon Iced Tea - ₱170  
-\t23. Apple Juice - ₱150\t24. Pineapple Juice - ₱180  
-\t25. Matcha - ₱200  
+            "[bold blue]❄️ COLD DRINKS:[/bold blue]\n"
+            "\t[bold bright_green]21.[/bold bright_green] {20:<20}  [bold yellow]{45}[/bold yellow]\n"
+            "\t[bold bright_green]22.[/bold bright_green] {21:<20}  [bold yellow]{46}[/bold yellow]\n"
+            "\t[bold bright_green]23.[/bold bright_green] {22:<20}  [bold yellow]{47}[/bold yellow]\n"
+            "\t[bold bright_green]24.[/bold bright_green] {23:<20}  [bold yellow]{48}[/bold yellow]\n"
+            "\t[bold bright_green]25.[/bold bright_green] {24:<20}  [bold yellow]{49}[/bold yellow]\n"
 
-(E) - Finish Ordering  
-(0) - Return to Main Menu
-"""
-        console.print(Panel(menu_text, title="🍽 FOOD & DRINKS MENU", border_style="blue"))
+        ).format(*[menu_options[str(i)][0] for i in range(1, 26)], *[menu_options[str(i)][1] for i in range(1, 26)])
+
+        console.print(Panel(menu_text, title="🍽 FOOD & DRINKS MENU 🍽", border_style="green", width=100))
     else:
-        console.print("❌ Invalid choice, please enter 1 to order or 0 to return!", style="bold red")
+        console.print("❌ Invalid choice! Please enter 1 to order or 0 to return!", style="bold red")
         return
 
     while True:
@@ -195,54 +188,202 @@ def add_to_order():
         else:
             console.print("❌ Invalid choice, please try again!", style="bold red")
 
-def clear_screen():
-    os.system('cls' if os.name == 'nt' else 'clear')
+def rev_order():
+    clear_screen()
+    while True:
+        console.print("\t🛒 Order Review 🐍", style="bold yellow")
+        console.print("-" * 50 + "\n")
 
-# Main menu function
-def clear_screen():
-    # For Windows
-    if os.name == 'nt':
-        _ = os.system('cls')
-    # For macOS and Linux
+        if not allorders:
+            console.print("🗑️Your order is currently empty.", style="bold red")
+        else:
+            console.print("🛒Your Current Order:\n", style="bold cyan")
+
+            total_cost = 0
+            for position, item in enumerate(allorders, start=1):
+                item_parts = item.split(" - ")
+                item_name = item_parts[0]
+                item_price = item_parts[1]
+
+                price_value = int(item_price.replace("₱", "").replace(",", ""))
+                total_cost += price_value
+
+                console.print(f"{position}. {item}", style="bold green")
+
+            console.print(f"\n💰 Total Cost: ₱{total_cost:,}", style="bold magenta")
+
+        console.print("\nOptions:", style="bold blue")
+        console.print("[1] Remove an item ❌")
+        console.print("[2] Add more items 🔍")
+        console.print("[3] Finalize order 💾")
+        console.print("[0] Return to main menu ⌨")
+
+        choice = input("\nYour choice: ").strip()
+
+        if choice == '1':
+            remove_item_from_order()
+        elif choice == '2':
+            add_to_order()
+        elif choice == '3':
+            console.print("\n✅ Order has been finalized. Please wait, printing your receipt!", style="bold green")
+            console.print("\n𓆙" + "." * 20)
+            input("\nPress Enter to return to the main menu...")
+            return
+        elif choice == '0':
+            return
+        else:
+            console.print("❌ Invalid choice, please try again!", style="bold red")
+
+def remove_item_from_order():
+    clear_screen()
+    if not allorders:
+        console.print("Your order is empty!❎", style="bold red")
+        input("\nPress Enter to return...")
+        return
+
+    console.print("\t🗑 Remove an Item🗑️", style="bold yellow")
+    console.print("-" * 50)
+
+    for position, item in enumerate(allorders, start=1):
+        console.print(f"{position}. {item}", style="bold red")
+
+    try:
+        item_number = int(input("\nEnter the number of the item to remove (or 0 to cancel): ").strip())
+        if item_number == 0:
+            return
+        elif 1 <= item_number <= len(allorders):
+            removed_item = allorders.pop(item_number - 1)
+            console.print(f"✅ Removed {removed_item} from your order!", style="bold green")
+        else:
+            console.print("❌ Invalid number, please try again!", style="bold red")
+    except ValueError:
+        console.print("❌ Invalid input, please enter a number!", style="bold red")
+
+    input("\nPress Enter to continue...")
+    clear_screen()
+
+    input("\nPress Enter to return to the main menu...")
+    clear_screen()
+
+def admin_check():
+    clear_screen()
+    password = input("Enter admin password: ")
+    if password == "PROLOGI-123":  # Replace with a secure password
+        admin_menu()
     else:
-        _ = os.system('clear')
+        print("Incorrect password. Access denied.")
+    input("\nPress Enter to return to the main menu...")
+    clear_screen()
 
+def view_all_orders():
+    clear_screen()
+    if not allorders:
+        print("No orders have been placed yet.")
+    else:
+        print("All Orders:")
+        for order in allorders:
+            print(f"- {order}")
+
+def add_menu_item():
+    clear_screen()
+    item_number = input("Enter the number for the new item: ")
+    item_name = input("Enter the name of the new item: ")
+    menu_options[item_number] = item_name
+    print(f"Added '{item_name}' to the menu!")
+
+def remove_menu_item():
+    clear_screen()
+    item_number = input("Enter the number of the item to remove: ")
+    if item_number in menu_options:
+        removed_item = menu_options.pop(item_number)
+        print(f"Removed '{removed_item}' from the menu.")
+    else:
+        print("Item not found in the menu.")
+
+def reset_orders():
+    clear_screen()
+    allorders.clear()
+    print("All orders have been reset.")
+
+def admin_menu():
+    clear_screen()
+    while True:
+        print("\tAdmin Menu")
+        print("-" * 100 + "\n\n")
+        admin_options = [
+            '[1] View All Orders',
+            '[2] Add Menu Item',
+            '[3] Remove Menu Item',
+            '[4] Reset Orders',
+            '[5] Return to Main Menu'
+        ]
+        for option in admin_options:
+            print(option.center(100))
+
+        choice = input("\n\nPlease select an option: ")
+
+        match choice:
+            case '1':
+                view_all_orders()
+            case '2':
+                add_menu_item()
+            case '3':
+                remove_menu_item()
+            case '4':
+                reset_orders()
+            case '5':
+                print("Returning to the main menu...")
+                break
+            case _:
+                print("Invalid choice. Please try again.")
+        input("\nPress Enter to continue...")
+        clear_screen()
 
 def main():
     # Main Menu Screen
     clear_screen()
     while True:
 
-        print("\tWelcome to Python Express, where we move at slithering speeds to make your order!")
-        print("-" * 100 + "\n\n")
+        console.print(Align("🐍 Welcome to Python Express, where we move at slithering speeds to make your order! 🐉", align = "center", style = "bold bright_yellow"))
+        console.print(Align("-" * 100,align="center", style = "bold white"))
 
-        mmtxt = ['Main Menu\n', '[1] View Menu', '[2] Add to Order', '[3] Review Order', '[4] Finalize Order',
-                 '[5] Admin Settings', '[6] Exit']
-        for txt in mmtxt:
-            print(txt.center(100))
+        mmtxt = [
+            ("🗂️ Main Menu 🗂️", "bold bright_cyan"),
+            ("[1] View Food Menu ⓘ", "bold yellow"),
+            ("[2] Add to Order 📝", "bold cyan"),
+            ("[3] Review Order 🔎", "bold blue"),
+            ("[4] Finalize Order 📋", "bold green"),
+            ("[5] Admin Settings ⚙️", "bold white"),
+            ("[6] Exit 🖐", "bold red")
+        ]
+        for text, style in mmtxt:
+            console.print(Align(text, style=style, align="center"))
 
-        sel = input("\n\nPlease select an option. ")
+        sel = 0
+        sel = input("\n\nPlease select an option: ")
 
         match sel:
             case '1':
+                clear_screen()
                 display_menu()
+                input("\nPress Enter to return to the main menu...")
+                clear_screen()
             case '2':
-                add_order()
+                add_to_order()
             case '3':
                 rev_order()
             case '4':
-                print("Order has been finalized. Please wait, printing your receipt!")
+                console.print("Order has been finalized. Please wait, printing your receipt!\n𓆙" + "."* 30, style = "bold yellow")
                 rev_order()
                 break
             case '5':
                 admin_check()  # integrate function admin_menu() once done, as well as the main menu for admin and its functions
             case '6':
-                print("\nThank you for using Python Express! Goodbye. 🐍)
+                console.print(Align("Thank you for using Python Express!\n😃 Goodbye and Stay Safe! 😃", style = "bold bright_green", align = "center"))
                 break
             case _:
                 clear_screen()
-                print("❌ Invalid choice. Please try again.")
-                input("\nPress 0 to return: ")
+                console.print("Invalid choice. Please try again.🙂", style = "red")
 
 
 if __name__ == "__main__":
