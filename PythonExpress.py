@@ -226,6 +226,23 @@ def rev_order():
             add_to_order()
         elif choice == '3':
             console.print("\n✅ Order has been finalized. Please wait, printing your receipt!", style="bold green")
+            try:
+                with open('receipt.txt', 'w', encoding="utf-8") as file:
+                    file.write("Python Express\n".center(50) + "\n")
+                    file.write("=" * 50 + "\n")
+                    file.write("Receipt\n".center(50) + "\n")
+                    file.write("=" * 50 + "\n")
+
+                    for position, item in enumerate(allorders, start=1):
+                        file.write(f"{position}. {item}\n")
+
+                    file.write("=" * 50 + "\n")
+                    file.write(f"TOTAL AMOUNT: ₱{total_cost:,}\n")
+                    file.write("=" * 50 + "\n")
+
+                console.print("\n✅ Receipt has been saved as 'receipt.txt'.", style="bold green")
+            except IOError:
+                print("INVALID! Please pick again") 
             console.print("\n𓆙" + "." * 20)
             input("\nPress Enter to return to the main menu...")
             return
