@@ -231,41 +231,43 @@ def rev_order():
         elif choice == '3':
             amount = payment()
             change = amount - total_cost
+            digits = randint(1000,9999)
             console.print("\n✅ Order has been finalized. Please wait, printing your receipt!", style="bold green")
             try:
                 current_time = datetime.now().strftime("%m/%d/%Y %H:%M")
                 with open('receipt.txt', 'w', encoding="utf-8") as file:
-                    qty_width = 5
-                    item_width = 19
-                    price_width = 15
-                    amount_width = 9
-                    
                     file.write("=" * 50 + "\n")
                     file.write("Python Express".center(50))
                     file.write(f"\n\n{current_time}")
                     file.write("\n" + "=" * 50 + "\n")
-                    file.write("SALE INVOICE".center(50))
+                    file.write(f"SALES INVOICE # {digits}".center(50))
                     file.write("\n" + "=" * 50 + "\n")
-                    file.write(f"{'QTY'.ljust(qty_width)}{'Items'.ljust(item_width)}{'Item Price'.rjust(price_width)}{'Amount'.rjust(amount_width)}")
+                    file.write("{:<5}{:<19}{:<18}{:<9}".format("QTY", "Items", "Item Price", "Amount")) 
                     file.write("\n" + "=" * 50 + "\n")
 
                     for item, quantity in allorders.items():
                         item_price = int(item.split("₱")[1])
+                        item_pricedisplay = f"₱ {item_price:.2f}"
                         itemdisplay = item.split(" - ₱")[0].strip()
-                        file.write(f"{str(quantity).ljust(qty_width)}{itemdisplay.ljust(item_width)}₱{str(item_price).rjust(price_width - 1)}₱{str(item_price * quantity).rjust(amount_width - 1)}\n")
+                        total_item =  item_price * quantity
+                        total_itemdisplay = f"₱ {total_item:.2f}"
+                        file.write("{:<5}{:<22}{:<15}{:<9}\n".format(quantity, itemdisplay, item_pricedisplay, total_itemdisplay)) 
+
+                    total_costdisplay = f"₱ {total_cost:.2f}"
+                    amountdisplay = f"₱ {amount:.2f}"
+                    changedisplay = f"₱ {change:.2f}"
 
                     file.write("=" * 50 + "\n")
-                    file.write(f"TOTAL AMOUNT: ₱{total_cost:,}\n")
+                    file.write("TOTAL AMOUNT: {:>36}\n".format(total_costdisplay))
                     file.write("=" * 50 + "\n")
-                    file.write(f"Amount ₱ {amount}")
-                    file.write(f"\n\nChange ₱ {change}")
+                    file.write("Amount Paid: {:>37}".format(amountdisplay))
+                    file.write("\n\nChange: {:>42}.".format(changedisplay))
 
                 console.print("\n✅ Receipt has been saved as 'receipt.txt'.", style="bold green")
                 allorders.clear()
             except IOError:
                 print("INVALID! Please pick again") 
             console.print("\n𓆙" + "." * 20)
-            digits = randint(1000,9999)
             console.print(f"\nPlease present the number {digits} to the cashier!")
             input("\nPress Enter to return to the main menu...")
             return
