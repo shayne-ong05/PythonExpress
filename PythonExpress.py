@@ -18,6 +18,8 @@ from rich.console import Console
 from rich.panel import Panel
 from rich.align import Align
 from random import randint
+from datetime import datetime
+import re
 
 console = Console()
 
@@ -116,6 +118,8 @@ def display_menu():
     console.print("\nPress [bold bright_green]0[/bold bright_green] to return: ")
     input()
 
+allorders = {}
+
 def add_to_order():
     console.print("\n🛒 Are you ready to place an order?", style="bold yellow")
     console.print("Press [1] to start ordering")
@@ -174,6 +178,7 @@ def add_to_order():
     else:
         console.print("❌ Invalid choice! Please enter 1 to order or 0 to return!", style="bold red")
         return
+    
 
     while True:
         order = input("\nEnter item number that you want to order (or 'E' to finish, '0' to go back): ").strip().upper()
@@ -184,8 +189,11 @@ def add_to_order():
             return
         elif order in menu_options:
             item_name, _ = menu_options[order]
-            allorders.append(item_name)
-            console.print(f"✅ Added {item_name} to your order!\n", style="bold green")
+            if item_name in allorders:
+                allorders[item_name] += 1
+            else:
+                allorders[item_name] = 1
+            console.print(f"✅ Added {item_name} (x{allorders[item_name]}) to your order!", style="bold green")
         else:
             console.print("❌ Invalid choice, please try again!", style="bold red")
 
@@ -201,15 +209,10 @@ def rev_order():
             console.print("🛒Your Current Order:\n", style="bold cyan")
 
             total_cost = 0
-            for position, item in enumerate(allorders, start=1):
-                item_parts = item.split(" - ")
-                item_name = item_parts[0]
-                item_price = item_parts[1]
-
-                price_value = int(item_price.replace("₱", "").replace(",", ""))
-                total_cost += price_value
-
-                console.print(f"{position}. {item}", style="bold green")
+            for item, quantity in allorders.items():
+                item_price = int(item.split(" - ₱")[1])
+                total_cost += item_price * quantity
+                console.print(f"{item} x{quantity}", style="bold green")
 
             console.print(f"\n💰 Total Cost: ₱{total_cost:,}", style="bold magenta")
 
@@ -226,9 +229,45 @@ def rev_order():
         elif choice == '2':
             add_to_order()
         elif choice == '3':
-            console.print("\n✅ Order has been finalized. Please wait, printing your receipt!", style="bold green")
-            console.print("\n𓆙" + "." * 20)
+            amount = payment()
+            change = amount - total_cost
             digits = randint(1000,9999)
+            console.print("\n✅ Order has been finalized. Please wait, printing your receipt!", style="bold green")
+            try:
+                current_time = datetime.now().strftime("%m/%d/%Y %H:%M")
+                with open('receipt.txt', 'w', encoding="utf-8") as file:
+                    file.write("=" * 50 + "\n")
+                    file.write("Python Express".center(50))
+                    file.write(f"\n\n{current_time}")
+                    file.write("\n" + "=" * 50 + "\n")
+                    file.write(f"SALES INVOICE # {digits}".center(50))
+                    file.write("\n" + "=" * 50 + "\n")
+                    file.write("{:<5}{:<19}{:<18}{:<9}".format("QTY", "Items", "Item Price", "Amount")) 
+                    file.write("\n" + "=" * 50 + "\n")
+
+                    for item, quantity in allorders.items():
+                        item_price = int(item.split("₱")[1])
+                        item_pricedisplay = f"₱ {item_price:.2f}"
+                        itemdisplay = item.split(" - ₱")[0].strip()
+                        total_item =  item_price * quantity
+                        total_itemdisplay = f"₱ {total_item:.2f}"
+                        file.write("{:<5}{:<22}{:<15}{:<9}\n".format(quantity, itemdisplay, item_pricedisplay, total_itemdisplay)) 
+
+                    total_costdisplay = f"₱ {total_cost:.2f}"
+                    amountdisplay = f"₱ {amount:.2f}"
+                    changedisplay = f"₱ {change:.2f}"
+
+                    file.write("=" * 50 + "\n")
+                    file.write("TOTAL AMOUNT: {:>36}\n".format(total_costdisplay))
+                    file.write("=" * 50 + "\n")
+                    file.write("Amount Paid: {:>37}".format(amountdisplay))
+                    file.write("\n\nChange: {:>42}.".format(changedisplay))
+
+                console.print("\n✅ Receipt has been saved as 'receipt.txt'.", style="bold green")
+                allorders.clear()
+            except IOError:
+                print("INVALID! Please pick again") 
+            console.print("\n𓆙" + "." * 20)
             console.print(f"\nPlease present the number {digits} to the cashier!")
             input("\nPress Enter to return to the main menu...")
             return
@@ -307,6 +346,61 @@ def reset_orders():
     clear_screen()
     allorders.clear()
     print("All orders have been reset.")
+
+def payment():
+    total_amount = sum(int(item.split(" - ₱")[1]) * qty for item, qty in allorders.items())
+
+    while True:
+        print("How do you wish to pay? Please pick a payment option:")
+        print("[1] Credit Card")
+        print("[2] G-Cash")
+        
+        Pchoice = input("Choice: ").strip()
+
+        if Pchoice == '1':
+            card_number = input("Please enter your credit card number (16 digits): ").strip()
+            if not re.fullmatch(r"\d{16}", card_number):
+                print("Invalid credit card number. Please enter exactly 16 digits.")
+                continue
+
+            while True:
+                try:
+                    amount = float(input(f"Please enter payment amount (Total: ₱{total_amount:,}): "))
+                    if amount < total_amount:
+                        print("❌ Not enough funds. Enter a higher amount.")
+                    else:
+                        change = amount - total_amount
+                        print(f"✅ Payment of ₱{amount:,} processed using card ending in {card_number[-4:]}.")
+                        if change > 0:
+                            print(f"💰 Change: ₱{change:,}")
+                        return amount
+                except ValueError:
+                    print("Invalid amount. Please enter a valid number.")
+
+        elif Pchoice == '2':
+            gcash_number = input("Enter your G-Cash number (11 digits): ").strip()
+            if not re.fullmatch(r"\d{11}", gcash_number):
+                print("❌ Invalid G-Cash number. Enter a valid 11-digit number.")
+                continue
+
+            while True:
+                try:
+                    amount = float(input(f"Enter payment amount (Total: ₱{total_amount:,}): "))
+                    if amount < total_amount:
+                        print("❌ Not enough funds. Enter a higher amount.")
+                    else:
+                        change = amount - total_amount
+                        print(f"✅ Payment of ₱{amount:,} processed via G-Cash ({gcash_number}).")
+                        if change > 0:
+                            print(f"💰 Change: ₱{change:,}")
+                        return amount
+                except ValueError:
+                    print("❌ Invalid amount. Enter a valid number.")
+
+        else:
+            print("❌ Invalid choice. Please pick 1 or 2.")
+    
+
 
 def admin_menu():
     clear_screen()
