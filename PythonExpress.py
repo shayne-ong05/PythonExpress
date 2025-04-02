@@ -330,15 +330,27 @@ def add_menu_item():
     clear_screen()
     item_number = input("Enter the number for the new item: ")
     item_name = input("Enter the name of the new item: ")
-    menu_options[item_number] = item_name
-    print(f"Added '{item_name}' to the menu!")
+    item_price = input("Enter the price of the new item (e.g., 250): ")
+    
+    # Create formatted item name with price
+    formatted_item = f"{item_name} - ₱{item_price}"
+    
+    # Get category
+    print("\nCategories: snack, seafood, beef, pork, chicken, pasta, hot drink, cold drink")
+    item_category = input("Enter the category for the new item: ").lower().strip()
+    
+    # Add to menu_options dictionary
+    menu_options[item_number] = (formatted_item, item_category)
+    
+    print(f"Added '{formatted_item}' to the menu in category '{item_category}'!")
 
 def remove_menu_item():
     clear_screen()
     item_number = input("Enter the number of the item to remove: ")
     if item_number in menu_options:
-        removed_item = menu_options.pop(item_number)
-        print(f"Removed '{removed_item}' from the menu.")
+        removed_item = menu_options[item_number]
+        del menu_options[item_number]
+        print(f"Removed '{removed_item[0]}' from the menu.")
     else:
         print("Item not found in the menu.")
 
