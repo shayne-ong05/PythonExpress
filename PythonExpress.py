@@ -279,23 +279,29 @@ def rev_order():
 def remove_item_from_order():
     clear_screen()
     if not allorders:
-        console.print("Your order is empty!❎", style="bold red")
+        console.print("Your order is empty! ❎", style="bold red")
         input("\nPress Enter to return...")
         return
 
-    console.print("\t🗑 Remove an Item🗑️", style="bold yellow")
+    console.print("\t🗑 Remove an Item 🗑️", style="bold yellow")
     console.print("-" * 50)
 
-    for position, item in enumerate(allorders, start=1):
-        console.print(f"{position}. {item}", style="bold red")
+    order_items = list(allorders.keys())  # Convert dict keys to a list for indexing
+    for position, item in enumerate(order_items, start=1):
+        console.print(f"{position}. {item} (x{allorders[item]})", style="bold red")
 
     try:
         item_number = int(input("\nEnter the number of the item to remove (or 0 to cancel): ").strip())
         if item_number == 0:
             return
-        elif 1 <= item_number <= len(allorders):
-            removed_item = allorders.pop(item_number - 1)
-            console.print(f"✅ Removed {removed_item} from your order!", style="bold green")
+        elif 1 <= item_number <= len(order_items):
+            removed_item = order_items[item_number - 1]  # Get item name from list
+            if allorders[removed_item] > 1:
+                allorders[removed_item] -= 1  # Decrease quantity
+                console.print(f"✅ Decreased quantity of {removed_item} (x{allorders[removed_item]})", style="bold green")
+            else:
+                del allorders[removed_item]  # Remove item completely if quantity is 1
+                console.print(f"✅ Removed {removed_item} from your order!", style="bold green")
         else:
             console.print("❌ Invalid number, please try again!", style="bold red")
     except ValueError:
@@ -304,8 +310,6 @@ def remove_item_from_order():
     input("\nPress Enter to continue...")
     clear_screen()
 
-    input("\nPress Enter to return to the main menu...")
-    clear_screen()
 
 def admin_check():
     clear_screen()
