@@ -103,8 +103,16 @@ def add_to_order():
 
         if order in menu_options:
             if order == 'E':
-                console.print("\nThank you for ordering! Here’s your order summary:")
-                console.print(Panel("\n".join(allorders), title="Your Order", border_style="green"))
+                total = 0
+                console.print("\nThank you for ordering! Here's your order summary:")
+                order_summary = []
+                for item in allorders:
+                    item_parts = item.split(" - ")
+                    price = int(item_parts[1].replace("₱", ""))
+                    total += price
+                    order_summary.append(item)
+                order_summary.append(f"\nTotal: ₱{total}")
+                console.print(Panel("\n".join(order_summary), title="Your Order", border_style="green"))
                 break
             else:
                 item_name, category = menu_options[order]
