@@ -97,6 +97,9 @@ of your choice and it will automatically be added to your cart.
     console.print(Panel(menu_text, title="🍽 FOOD & DRINKS MENU", border_style="blue"))
 
 def add_to_order():
+    '''
+    Adds chosen dish to order of user
+    '''
     while True:
         display_menu()
         order = input("Enter the number of your choice (or 'E' to finish): ").strip().upper()

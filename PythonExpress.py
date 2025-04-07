@@ -8,11 +8,8 @@ Tolentino, Wayne Ian
 
 In partial fulfillment in the course Programming Logic and Design Lecture, under Mr. John Vincent Cortez.
 
-Updates:
-V1.0 - added main function, and some functions to be defined later for main menu 
-
 '''
-# Clear screen code, referencing GeeksforGeeks.org
+
 import os
 from rich.console import Console
 from rich.panel import Panel
@@ -62,6 +59,9 @@ menu_options = {
 allorders = []
 
 def clear_screen():
+    '''
+    Clears screen. Referenced from GeeksForGeeks.
+    '''
     # For Windows
     if os.name == 'nt':
         _ = os.system('cls')
@@ -70,6 +70,9 @@ def clear_screen():
         _ = os.system('clear')
 
 def display_menu():
+    '''
+    Displays base/default menu.
+    '''
     menu_text = (
          "[bold yellow]🥪 SNACKS:[/bold yellow]\n"
     "\t[bold bright_green]1.[/bold bright_green]  {0:<20}  [bold yellow]{25}[/bold yellow]\n"
@@ -121,6 +124,9 @@ def display_menu():
 allorders = {}
 
 def add_to_order():
+    '''
+    Functions as the second process in main menu, adds and stores user orders to program
+    '''
     console.print("\n🛒 Are you ready to place an order?", style="bold yellow")
     console.print("Press [1] to start ordering")
     console.print("Press [0] to return to the Main Menu")
@@ -198,6 +204,9 @@ def add_to_order():
             console.print("❌ Invalid choice, please try again!", style="bold red")
 
 def rev_order():
+    '''
+    Review order function before finalizing, functions as 3rd process in menu
+    '''
     clear_screen()
     while True:
         console.print("\t🛒 Order Review 🐍", style="bold yellow")
@@ -277,6 +286,9 @@ def rev_order():
             console.print("❌ Invalid choice, please try again!", style="bold red")
 
 def remove_item_from_order():
+    '''
+    Removes/voids specific items from order.
+    '''
     clear_screen()
     if not allorders:
         console.print("Your order is empty! ❎", style="bold red")
@@ -312,6 +324,9 @@ def remove_item_from_order():
 
 
 def admin_check():
+    '''
+    Admin authentication, with basic password security
+    '''
     clear_screen()
     password = input("Enter admin password: ")
     if password == "PROLOGI-123":  # Replace with a secure password
@@ -322,6 +337,9 @@ def admin_check():
     clear_screen()
 
 def view_all_orders():
+    '''
+    Admin menu meant for viewing unfinalized orders.
+    '''
     clear_screen()
     if not allorders:
         print("No orders have been placed yet.")
@@ -331,6 +349,10 @@ def view_all_orders():
             print(f"- {order}")
 
 def add_menu_item():
+    '''
+    Admin menu function, adds new menu item from a replacement dish slot.
+    '''
+
     clear_screen()
     item_number = input("Enter the number for the new item: ")
     item_name = input("Enter the name of the new item: ")
@@ -349,6 +371,9 @@ def add_menu_item():
     print(f"Added '{formatted_item}' to the menu in category '{item_category}'!")
 
 def remove_menu_item():
+    '''
+    Admin function, removes menu item from dish slot, used in tandem with add_menu_item
+    '''
     clear_screen()
     item_number = input("Enter the number of the item to remove: ")
     if item_number in menu_options:
@@ -359,11 +384,17 @@ def remove_menu_item():
         print("Item not found in the menu.")
 
 def reset_orders():
+    '''
+    Clears all orders in admin
+    '''
     clear_screen()
     allorders.clear()
     print("All orders have been reset.")
 
 def payment():
+    '''
+    Handles payment options and change calculations.
+    '''
     total_amount = sum(int(item.split(" - ₱")[1]) * qty for item, qty in allorders.items())
 
     while True:
@@ -419,6 +450,9 @@ def payment():
 
 
 def admin_menu():
+    '''
+    Administrative main menu.
+    '''
     clear_screen()
     while True:
         print("\tAdmin Menu")
@@ -453,6 +487,9 @@ def admin_menu():
         clear_screen()
 
 def main():
+    '''
+    Main function meant to serve as main menu and other relevant frontend code.
+    '''
     # Main Menu Screen
     clear_screen()
     while True:
